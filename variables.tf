@@ -16,4 +16,3 @@ variable "vnets" {
     subnet_prefixes=list(string)
   }))
 }
-
