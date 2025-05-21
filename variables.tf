@@ -8,17 +8,12 @@ variable "resource_location" {
   description = "RG_location"
 }
 
-variable "vnet_address_space" {
-  type = list(string)
-  description = "Vnet address space"
-}
-  
-variable "vnet_name" {
-  type = string
-  description = "Vnet names"
+variable "vnets" {
+  type = map(object({
+    address_space = list(string)
+    vnet_name=string
+    subnet_names=list(string)
+    subnet_prefixes=list(string)
+  }))
 }
 
-variable "subnet_names" {
-  type = list(string)
-  description = "subnet names"
-}

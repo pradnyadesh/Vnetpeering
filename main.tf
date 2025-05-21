@@ -4,13 +4,15 @@ resource "azurerm_resource_group" "RG01" {
 }
 
 module "vnet" {
+  for_each = var.vnets
   source  = "Azure/vnet/azurerm"
   version = "5.0.1"
   resource_group_name = var.resourcegrp_name
   vnet_location = var.resource_location
-  address_space = var.vnet_address_space
-  vnet_name = var.vnet_name
-  subnet_names = [var.subnet_names[0],var.subnet_names[1]]
-  subnet_prefixes = ["10.0.1.0/24","10.0.0.0/24"]
+  address_space = each.value.address_space
+  vnet_name = each.value.vnet_name
+  subnet_names = each.value.subnet_names
+  subnet_prefixes = each.value.subnet_prefixes
   depends_on = [ azurerm_resource_group.RG01 ]
+ 
 }
